@@ -33,10 +33,12 @@
           if (movement) {
             document.write(movement + "<br>");
           }
-
-          for (var i = 0; i < array.length; i++) {
+          array.forEach((v, i) => {
             document.write(array[i].join(" ") + "<br>");
-          }
+          });
+          //   for (var i = 0; i < array.length; i++) {
+          //     document.write(array[i].join(" ") + "<br>");
+          //   }
 
           document.write("<br>" + "<br>");
         },
