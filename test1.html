@@ -36,14 +36,10 @@
           array.forEach((v, i) => {
             document.write(array[i].join(" ") + "<br>");
           });
-          //   for (var i = 0; i < array.length; i++) {
-          //     document.write(array[i].join(" ") + "<br>");
-          //   }
-
           document.write("<br>" + "<br>");
         },
         movecube: function (alpha) {
-          for (var i = 0; i < alpha.length; i++) {
+          alpha.forEach((v, i) => {
             if (alpha[i] === "U") {
               var a1 = this.orderUpLeft(this.arr2[0]);
             } else if (alpha[i] === "U'") {
@@ -91,7 +87,7 @@
               this.arr2[2][0] = a1[2];
             }
             this.showCube(alpha[i], this.arr2);
-          }
+          });
         },
         orderUpLeft: function (array) {
           var temp = array.shift();
