@@ -1,0 +1,236 @@
+<html>
+  <head>
+    <title>step-2</title>
+  </head>
+  <body>
+    <script>
+      var cube = {
+        initialCube: [
+          ["R", "R", "W"],
+          ["G", "C", "W"],
+          ["G", "B", "B"],
+        ],
+        arr2: [
+          ["R", "R", "W"],
+          ["G", "C", "W"],
+          ["G", "B", "B"],
+        ],
+        word: prompt("CUBE> (입력 가능:U , U' , R , R' , L , L' , B , B' , Q)"),
+        wordSplit: function (strings) {
+          var temp = strings.split("");
+          var array = [];
+          while (temp.length > 0) {
+            for (var i = 0; i < temp.length; i++) {
+              if (temp[i] !== "'" && temp[i + 1] == "'") {
+                var temp2 = temp.splice(i, 2).join("");
+                array.push(temp2);
+                break;
+              } else if (temp[i] !== "'" && temp[i + 1] !== "'") {
+                var temp2 = temp.splice(i, 1).join("");
+                array.push(temp2);
+                break;
+              }
+            }
+          }
+          return array;
+        },
+        showCube: function (wow, array) {
+          if (wow) {
+            document.write(wow + "<br>");
+          }
+
+          for (var i = 0; i < array.length; i++) {
+            document.write(array[i].join(" ") + "<br>");
+          }
+
+          document.write("<br>" + "<br>");
+        },
+        movecube: function (alpha) {
+          for (var i = 0; i < alpha.length; i++) {
+            if (alpha[i] === "U") {
+              var a1 = this.orderUpLeft(this.arr2[0]);
+            } else if (alpha[i] === "U'") {
+              var a1 = this.orderDownRight(this.arr2[0]);
+            } else if (alpha[i] === "R") {
+              var a1 = this.orderUpLeft([
+                this.arr2[0][2],
+                this.arr2[1][2],
+                this.arr2[2][2],
+              ]);
+              this.arr2[0][2] = a1[0];
+              this.arr2[1][2] = a1[1];
+              this.arr2[2][2] = a1[2];
+            } else if (alpha[i] === "R'") {
+              var a1 = this.orderDownRight([
+                this.arr2[0][2],
+                this.arr2[1][2],
+                this.arr2[2][2],
+              ]);
+              this.arr2[0][2] = a1[0];
+              this.arr2[1][2] = a1[1];
+              this.arr2[2][2] = a1[2];
+            } else if (alpha[i] === "B") {
+              var a1 = this.orderDownRight(this.arr2[2]);
+            } else if (alpha[i] === "B'") {
+              var a1 = this.orderUpLeft(this.arr2[2]);
+            } else if (alpha[i] === "L") {
+              var a1 = this.orderDownRight([
+                this.arr2[0][0],
+                this.arr2[1][0],
+                this.arr2[2][0],
+              ]);
+              this.arr2[0][0] = a1[0];
+              this.arr2[1][0] = a1[1];
+              this.arr2[2][0] = a1[2];
+            } else if (alpha[i] === "L'") {
+              var a1 = this.orderUpLeft([
+                this.arr2[0][0],
+                this.arr2[1][0],
+                this.arr2[2][0],
+              ]);
+              this.arr2[0][0] = a1[0];
+              this.arr2[1][0] = a1[1];
+              this.arr2[2][0] = a1[2];
+            }
+            this.showCube(alpha[i], this.arr2);
+          }
+        },
+        orderUpLeft: function (array) {
+          var temp = array.shift();
+          array.push(temp);
+          return array;
+        },
+        orderDownRight: function (array) {
+          var temp = array.pop();
+          array.unshift(temp);
+          return array;
+        },
+      };
+      cube.main = function () {
+        var value = this.wordSplit(this.word);
+        this.showCube(false, this.initialCube);
+        document.write("CUBE> " + this.word + "<br>");
+        if (this.word === "Q") document.write("Bye~");
+        else if (value) {
+          this.movecube(value);
+        }
+        console.log(value);
+      };
+      cube.main();
+
+      //   var cube = {
+      //     initialCube: [
+      //       ["R", "R", "W"],
+      //       ["G", "C", "W"],
+      //       ["G", "B", "B"],
+      //     ],
+      //     arr2: [
+      //       ["R", "R", "W"],
+      //       ["G", "C", "W"],
+      //       ["G", "B", "B"],
+      //     ],
+      //     word: prompt("CUBE> (입력 가능:U , U' , R , R' , L , L' , B , B' , Q)"),
+      //     wordSplit: function (strings) {
+      //       var temp = strings.split("");
+      //       var array = [];
+      //       while (temp.length > 0) {
+      //         for (var i = 0; i < temp.length; i++) {
+      //           if (temp[i] !== "'" && temp[i + 1] == "'") {
+      //             var temp2 = temp.splice(i, 2).join("");
+      //             array.push(temp2);
+      //             break;
+      //           } else if (temp[i] !== "'" && temp[i + 1] !== "'") {
+      //             var temp2 = temp.splice(i, 1).join("");
+      //             array.push(temp2);
+      //             break;
+      //           }
+      //         }
+      //       }
+      //       return array;
+      //     },
+      //     showCube: function (wow, array) {
+      //       if (wow) {
+      //         document.write(wow + "<br>");
+      //       }
+
+      //       for (var i = 0; i < array.length; i++) {
+      //         document.write(array[i].join(" ") + "<br>");
+      //       }
+
+      //       document.write("<br>" + "<br>");
+      //     },
+      //     movecube: function (alpha) {
+      //       for (var i = 0; i < alpha.length; i++) {
+      //         if (alpha[i] === "U") {
+      //           var a1 = this.orderUpLeft(this.arr2[0]);
+      //         } else if (alpha[i] === "U'") {
+      //           var a1 = this.orderDownRight(this.arr2[0]);
+      //         } else if (alpha[i] === "R") {
+      //           var a1 = this.orderUpLeft([
+      //             this.arr2[0][2],
+      //             this.arr2[1][2],
+      //             this.arr2[2][2],
+      //           ]);
+      //           this.arr2[0][2] = a1[0];
+      //           this.arr2[1][2] = a1[1];
+      //           this.arr2[2][2] = a1[2];
+      //         } else if (alpha[i] === "R'") {
+      //           var a1 = this.orderDownRight([
+      //             this.arr2[0][2],
+      //             this.arr2[1][2],
+      //             this.arr2[2][2],
+      //           ]);
+      //           this.arr2[0][2] = a1[0];
+      //           this.arr2[1][2] = a1[1];
+      //           this.arr2[2][2] = a1[2];
+      //         } else if (alpha[i] === "B") {
+      //           var a1 = this.orderDownRight(this.arr2[2]);
+      //         } else if (alpha[i] === "B'") {
+      //           var a1 = this.orderUpLeft(this.arr2[2]);
+      //         } else if (alpha[i] === "L") {
+      //           var a1 = this.orderDownRight([
+      //             this.arr2[0][0],
+      //             this.arr2[1][0],
+      //             this.arr2[2][0],
+      //           ]);
+      //           this.arr2[0][0] = a1[0];
+      //           this.arr2[1][0] = a1[1];
+      //           this.arr2[2][0] = a1[2];
+      //         } else if (alpha[i] === "L'") {
+      //           var a1 = this.orderUpLeft([
+      //             this.arr2[0][0],
+      //             this.arr2[1][0],
+      //             this.arr2[2][0],
+      //           ]);
+      //           this.arr2[0][0] = a1[0];
+      //           this.arr2[1][0] = a1[1];
+      //           this.arr2[2][0] = a1[2];
+      //         }
+      //         this.showCube(alpha[i], this.arr2);
+      //       }
+      //     },
+      //     orderUpLeft: function (array) {
+      //       var temp = array.shift();
+      //       array.push(temp);
+      //       return array;
+      //     },
+      //     orderDownRight: function (array) {
+      //       var temp = array.pop();
+      //       array.unshift(temp);
+      //       return array;
+      //     },
+      //   };
+      //   cube.main = function () {
+      //     var value = this.wordSplit(this.word);
+      //     this.showCube(false, this.initialCube);
+      //     document.write("CUBE> " + this.word + "<br>");
+      //     if (this.word === "Q") document.write("Bye~");
+      //     else if (value) {
+      //       this.movecube(value);
+      //     }
+      //     console.log(value);
+      //   };
+      //   cube.main();
+    </script>
+  </body>
+</html>
