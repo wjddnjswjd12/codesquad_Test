@@ -5,11 +5,6 @@
   <body>
     <script>
       var cube = {
-        initialCube: [
-          ["R", "R", "W"],
-          ["G", "C", "W"],
-          ["G", "B", "B"],
-        ],
         arr2: [
           ["R", "R", "W"],
           ["G", "C", "W"],
@@ -88,6 +83,7 @@
                 this.arr2[1][0],
                 this.arr2[2][0],
               ]);
+              this.arr2.forEach;
               this.arr2[0][0] = a1[0];
               this.arr2[1][0] = a1[1];
               this.arr2[2][0] = a1[2];
@@ -108,7 +104,7 @@
       };
       cube.main = function () {
         var value = this.wordSplit(this.word);
-        this.showCube(false, this.initialCube);
+        this.showCube(false, this.arr2);
         document.write("CUBE> " + this.word + "<br>");
         if (this.word === "Q") document.write("Bye~");
         else if (value) {
